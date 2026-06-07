@@ -1,7 +1,7 @@
 // app.js — Study Buddy frontend logic
 // Connects to server.js running on localhost:3001
 
-const API = "http://localhost:3001";
+const API = "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";
 
 // ── State ─────────────────────────────────────────────────────────────────────
 let chatHistory = [];
