@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Buddy</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Background grain overlay -->
+  <div class="grain"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">
+      <span class="logo-icon">✦</span>
+      <span class="logo-text">Study<br>Buddy</span>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-btn active" data-tab="chat" onclick="switchTab('chat')">
+        <span class="nav-icon">◎</span> Chat
+      </button>
+      <button class="nav-btn" data-tab="quiz" onclick="switchTab('quiz')">
+        <span class="nav-icon">◈</span> Quiz
+      </button>
+      <button class="nav-btn" data-tab="summary" onclick="switchTab('summary')">
+        <span class="nav-icon">◇</span> Summary
+      </button>
+    </nav>
+
+    <div class="notes-panel">
+      <div class="notes-label">Your notes</div>
+      <textarea
+        id="notes-input"
+        class="notes-textarea"
+        placeholder="Paste your lecture notes, chapter content, or any study material here…"
+      ></textarea>
+      <div class="notes-meta">
+        <span id="char-count">0 chars</span>
+        <button class="clear-btn" onclick="clearNotes()">Clear</button>
+      </div>
+      <label class="file-upload">
+        <input type="file" id="file-input" accept=".txt,.md" onchange="handleFile(event)" />
+        <span>↑ Upload .txt file</span>
+      </label>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="model-badge">llama3-8b · groq</div>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+
+    <!-- ── CHAT TAB ── -->
+    <section class="tab-panel active" id="tab-chat">
+      <div class="panel-header">
+        <h1>Ask anything</h1>
+        <p>Questions answered strictly from your notes</p>
+      </div>
+
+      <div class="chat-window" id="chat-window">
+        <div class="message ai">
+          <div class="msg-bubble">
+            Hi! Paste your notes on the left, then ask me anything about them. I'll answer only from what's in your notes.
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-row">
+        <input
+          type="text"
+          id="chat-input"
+          class="chat-input"
+          placeholder="Ask a question about your notes…"
+          onkeydown="if(event.key==='Enter') sendChat()"
+        />
+        <button class="send-btn" onclick="sendChat()" id="send-btn">
+          <span>Send</span> →
+        </button>
+      </div>
+    </section>
+
+    <!-- ── QUIZ TAB ── -->
+    <section class="tab-panel" id="tab-quiz">
+      <div class="panel-header">
+        <h1>Quiz yourself</h1>
+        <p>5 questions generated from your notes</p>
+      </div>
+
+      <div class="quiz-area" id="quiz-area">
+        <div class="empty-state">
+          <div class="empty-icon">◈</div>
+          <p>Add your notes and hit Generate to get started</p>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <button class="action-btn" onclick="generateQuiz()" id="quiz-btn">
+          Generate quiz →
+        </button>
+      </div>
+    </section>
+
+    <!-- ── SUMMARY TAB ── -->
+    <section class="tab-panel" id="tab-summary">
+      <div class="panel-header">
+        <h1>Quick summary</h1>
+        <p>Key ideas from your notes, structured</p>
+      </div>
+
+      <div class="summary-area" id="summary-area">
+        <div class="empty-state">
+          <div class="empty-icon">◇</div>
+          <p>Add your notes and hit Summarize</p>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <button class="action-btn" onclick="generateSummary()" id="summary-btn">
+          Summarize notes →
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
